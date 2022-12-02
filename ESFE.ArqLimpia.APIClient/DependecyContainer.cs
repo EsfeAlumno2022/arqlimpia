@@ -17,7 +17,7 @@ namespace ESFE.ArqLimpia.APIClient
 
             services.AddScoped(sp => new HttpClient
             {
-                BaseAddress = new Uri(configuration.GetConnectionString("conexion"))
+                BaseAddress = new Uri(configuration["API:url"])
             });
 
             services.AddScoped<IUserBL, UserAPIClient>();

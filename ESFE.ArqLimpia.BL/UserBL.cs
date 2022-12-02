@@ -41,9 +41,14 @@ namespace ESFE.ArqLimpia.BL
 
         public async Task<int> Delete(DeleteUserDTO pUser)
         {
-            
-            userDAL.Delete(new User { Id = pUser.Id });
-            return await unitWork.SaveChangesAsync();
+            User user = await userDAL.GetById(new User { Id = pUser.Id });
+            if (user.Id == pUser.Id)
+            {
+                userDAL.Delete(user);
+                return await unitWork.SaveChangesAsync();
+            }
+            else
+                return 0;
         }
 
         public async Task<GetByIdUserOutputDTO> GetById(GetByIdUserInputDTO pUser)
